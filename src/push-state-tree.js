@@ -260,7 +260,7 @@ function PushStateTree(options) {
       return path;
     },
     set(value) {
-      if (typeof path != 'string') {
+      if (typeof value != 'string') {
         throw new TypeError('path must be a string.');
       }
       if (holdDispatch || value == path) return;
