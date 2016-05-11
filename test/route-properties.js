@@ -15,16 +15,12 @@ describe('PushStateTree properties', function() {
       expect(() => pst.path = 1).to.throw(TypeError, 'path must be a string');
     });
 
-    it('should dispatch Leave event', () => {
-      let dispatchEvent = pst.dispatchEvent;
-      let assertFunction = (customEvent) => {
-        expect(customEvent.type).to.equal(PushStateTree.LEAVE);
-        dispatchEvent.apply(this, customEvent);//.apply(this,
-      };
-      pst.dispatchEvent = assertFunction;
-      //chai.spy.on(pst, 'dispatchEvent');
-      pst.path = "test";
-      expect(pst.dispatchEvent).to.have.been.called;
+    it('should dispatch \'Leave event\' when old path was valid and current path is invalid', () => {
+      let leaveCalled = false;
+      pst.addEventListener('leave', (event) => {leaveCalled = event.type == 'leave'});
+      chai.spy.on(pst, 'dispatchEvent');
+      pst.path = 'test';
+      expect(leaveCalled).to.be.true;
     });
   });
 });
