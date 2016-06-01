@@ -31,7 +31,7 @@ export function BrowserAdapter() {
 
     let ieWatch;
     let loadListener = () => {
-      browserListener.apply(this);
+      browserListener();
 
       if (!isIE() || isIE() > 8) return;
 
@@ -41,7 +41,7 @@ export function BrowserAdapter() {
 
     // If the DOM is ready when running the PST, execute loadListeners and ignore others
     if (document.readyState == 'complete') {
-      loadListener.apply(this);
+      loadListener();
     } else {
       // Modern browsers
       document.addEventListener('DOMContentLoaded', browserListener);
