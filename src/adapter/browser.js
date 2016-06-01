@@ -31,7 +31,7 @@ export function BrowserAdapter() {
 
     let ieWatch;
     let loadListener = () => {
-      browserListener();
+      browserListener.apply(this);
 
       if (!isIE() || isIE() > 8) return;
 
@@ -41,7 +41,7 @@ export function BrowserAdapter() {
 
     // If the DOM is ready when running the PST, execute loadListeners and ignore others
     if (document.readyState == 'complete') {
-      loadListener();
+      loadListener.apply(this);
     } else {
       // Modern browsers
       document.addEventListener('DOMContentLoaded', browserListener);
@@ -155,9 +155,9 @@ export function BrowserAdapter() {
     return this;
   };
 
-  this.create = function (router) {
+  this.create = function (router, options) {
     if (typeof BrowserAdapter.prototype.create == 'function') {
-      BrowserAdapter.prototype.create.apply(this, arguments);
+      BrowserAdapter.prototype.create.apply(this, options);
     }
 
     let globalListeners = () => {};

@@ -4,7 +4,7 @@ export function AutoInjectHistory(Constructor, ...args) {
     options.plugins.push(new Constructor(...args));
 
     if (typeof AutoInjectHistory.prototype.create == 'function') {
-      AutoInjectHistory.prototype.create.apply(this, arguments);
+      AutoInjectHistory.prototype.create.apply(this, [router, options]);
     }
   }
 }

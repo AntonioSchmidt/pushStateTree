@@ -189,13 +189,13 @@ objectMixinProperties(PushStateTree, {
 
     let router = PushStateTree.createElement('pushstatetree-route');
 
-    // Execute prototype create
-    if (typeof this.create == 'function') {
-      this.create(router, ...arguments);
-    }
-
     // Proxy all PushStateTree prototype properties and methods to the current PST instance
     proxyTo(router, PushStateTree.prototype);
+
+    // Execute prototype create
+    if (typeof this.create == 'function') {
+      this.create(router, options);
+    }
 
     this.plugins = [];
     let plugins = options.plugins;
